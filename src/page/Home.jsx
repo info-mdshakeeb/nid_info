@@ -73,24 +73,24 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <StageLoading isLoading={isLoading} isError={isError} isSuccess={isSuccess} error={error}>
-            <TableTemp
-              btn={false}
-              linkUrl="/"
-              customID={true}
-              rightPage={paginateData}
-              totalData={data?.meta?.total}
-              assignLinkOnHeader="service_image"
-              isImage={true}
-              isImageLink={false}
-              tableHead={tableHead}
-              data={data?.data}
-              fieldsToShow={fieldsToShow}
-            // actionData={ActionData} 
-            />
-          </StageLoading>
-
-
+          <div className="mb-8 overflow-x-scroll scrollbar-hide">
+            <StageLoading isLoading={isLoading} isError={isError} isSuccess={isSuccess} error={error}>
+              <TableTemp
+                btn={false}
+                linkUrl="/"
+                customID={true}
+                rightPage={paginateData}
+                totalData={data?.meta?.total}
+                assignLinkOnHeader="service_image"
+                isImage={true}
+                isImageLink={false}
+                tableHead={tableHead}
+                data={data?.data}
+                fieldsToShow={fieldsToShow}
+              // actionData={ActionData} 
+              />
+            </StageLoading>
+          </div>
         </div>
       </div>
       <Paginate total={data} loadDataFn={handlePaginate} />

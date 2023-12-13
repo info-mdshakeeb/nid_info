@@ -1,4 +1,5 @@
 const StageLoading = ({ children, isLoading, isError, isSuccess, error }) => {
+  console.log(error);
   return (
     <>
       {isLoading ?
@@ -14,7 +15,7 @@ const StageLoading = ({ children, isLoading, isError, isSuccess, error }) => {
           ))}
         </div> :
         isError ? <div className="mt-10 text-red-400 ">
-          {error?.data?.error || "internal server error"}
+          {error?.data?.message || error?.error || "something unexpected error happened (;"}
         </div> :
           isSuccess ? children :
             <div className="mt-10 text-red-400">
