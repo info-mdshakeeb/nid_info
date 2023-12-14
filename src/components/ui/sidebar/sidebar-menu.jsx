@@ -19,8 +19,8 @@ const SidebarMenu = () => {
   //  get  queryData info after the queryData is fetched
 
   const data = [
-    { id: 1, name: "উপজেলা 1", icon: <PiHouseLineFill className="icon" />, },
-    { id: 2, name: "উপজেলা 2", icon: <PiHouseLineFill className="icon" />, }
+    { id: 1, name: "মেঘনা", icon: <PiHouseLineFill className="icon" />, },
+    { id: 2, name: "হোমনা", icon: <PiHouseLineFill className="icon" />, }
   ]
   return (
     <ScrollArea>

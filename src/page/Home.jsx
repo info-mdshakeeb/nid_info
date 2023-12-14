@@ -1,5 +1,6 @@
 import Paginate from '@/components/Paginate';
 import StageLoading from '@/components/StageLoading';
+import Table from '@/components/Table/Table';
 import TableTemp from '@/components/TableTemp';
 import { useGetUsersQuery } from '@/redux/features/users/usersApi';
 import React, { useState } from 'react';
@@ -10,7 +11,8 @@ const Home = () => {
   const { open, openUnion, openGram } = useSelector((state) => state.query);
   const [gander, setGander] = useState('')
   const [paginateData, setPaginateData] = useState(1)
-  const urlParams = `upozilla_id=${open.id}&union_id=${openUnion.id}&village_id=${openGram.id}&gender=${gander}&page=${paginateData}&limit=10`
+
+  const urlParams = `upozilla_id=${open.id}&union_id=${openUnion.id}&village_id=${openGram.id}&gender=${gander}&page=${paginateData}`
   const { data, isLoading, isError, isSuccess, error } = useGetUsersQuery(urlParams, {
     refetchOnMountOrArgChange: true,
     refetchOnReconnect: true,
@@ -38,6 +40,8 @@ const Home = () => {
   ];
   // table fields to show
   const fieldsToShow = ['name', 'nid', 'father', 'mother', 'occupation', 'address?.house', 'address?.village', 'address?.union', 'address?.upozilla',];
+
+  if (isLoading) return <div className="flex items-center justify-center h-screen"><span className="loading loading-lg"></span></div>
 
 
   return (
@@ -73,6 +77,27 @@ const Home = () => {
               </div>
             </div>
           </div>
+
+          {/* <Table
+            setPaginateData={setPaginateData}
+            paginateData={paginateData}
+            res={data}
+            columns={
+              [
+                { header: 'SL', accessorKey: 'id' },
+                { header: 'Name', accessorKey: 'name' },
+                { header: 'NID', accessorKey: 'nid' },
+                { header: 'Father', accessorKey: 'father' },
+                { header: 'Mother', accessorKey: 'mother' },
+                { header: 'Occupation', accessorKey: 'occupation' },
+                // { header: 'House', accessorKey: 'address.house' },
+                // { header: 'Village', accessorKey: 'address.village' },
+                // { header: 'Union', accessorKey: 'address.union' },
+                // { header: 'Upozilla', accessorKey: 'address.upozilla' },
+                // { header: 'Phone', accessorKey: 'address.phone' },
+              ]
+            } tableData={data?.data} /> */}
+
           <div className="mb-8 overflow-x-scroll scrollbar-hide">
             <StageLoading isLoading={isLoading} isError={isError} isSuccess={isSuccess} error={error}>
               <TableTemp

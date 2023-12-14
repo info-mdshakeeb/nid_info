@@ -13,6 +13,7 @@
     "@radix-ui/react-collapsible": "^1.0.3",
     "@radix-ui/react-scroll-area": "^1.0.5",
     "@reduxjs/toolkit": "^1.9.5",
+    "@tanstack/react-table": "^8.10.7",
     "@uidotdev/usehooks": "^2.4.1",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
