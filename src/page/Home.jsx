@@ -8,7 +8,7 @@ import Table from '@/components/Table/Table';
 import TableTemp from '@/components/TableTemp';
 import { Options } from '@/components/ui/Dropdown';
 import { useGetUsersQuery } from '@/redux/features/users/usersApi';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { twMerge } from 'tailwind-merge';
 
@@ -19,6 +19,11 @@ const Home = () => {
 
   const [gander, setGander] = useState('')
   const [paginateData, setPaginateData] = useState(1)
+
+  useEffect(() => {
+    setPaginateData(1)
+  }, [optionValue, search, gander, open, openUnion, openGram])
+
 
   const urlParams = `upozilla_id=${open.id}&union_id=${openUnion.id}&village_id=${openGram.id}&status=${optionValue}&search=${search?.name || ""}&gender=${gander}&page=${paginateData}&limit=10`
   const { data, isLoading, isError, isSuccess, error } = useGetUsersQuery(urlParams, {
@@ -154,7 +159,7 @@ const Home = () => {
           </div>
         </div>
       </div>
-      <Paginate total={data} loadDataFn={handlePaginate} />
+      <Paginate pageChange={paginateData} total={data} loadDataFn={handlePaginate} />
     </div>
   );
 };
