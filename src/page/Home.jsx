@@ -2,6 +2,7 @@
 import Card from '@/components/Card';
 import PiChart from '@/components/Chart/PiChart';
 import Paginate from '@/components/Paginate';
+import Search from '@/components/Search';
 import StageLoading from '@/components/StageLoading';
 import Table from '@/components/Table/Table';
 import TableTemp from '@/components/TableTemp';
@@ -14,11 +15,12 @@ import { twMerge } from 'tailwind-merge';
 const Home = () => {
   const { open, openUnion, openGram } = useSelector((state) => state.query);
   const [optionValue, setOptionValue] = useState("");
+  const [search, setSearch] = useState('')
 
   const [gander, setGander] = useState('')
   const [paginateData, setPaginateData] = useState(1)
 
-  const urlParams = `upozilla_id=${open.id}&union_id=${openUnion.id}&village_id=${openGram.id}&status=${optionValue}&gender=${gander}&page=${paginateData}&limit=10`
+  const urlParams = `upozilla_id=${open.id}&union_id=${openUnion.id}&village_id=${openGram.id}&status=${optionValue}&search=${search?.name || ""}&gender=${gander}&page=${paginateData}&limit=10`
   const { data, isLoading, isError, isSuccess, error } = useGetUsersQuery(urlParams, {
     refetchOnMountOrArgChange: true,
     refetchOnReconnect: true,
@@ -98,7 +100,8 @@ const Home = () => {
               <p className="mb-2 text-xl font-bold">User  Info</p>
             </div>
 
-            <div className="">
+            <div className="flex flex-col gap-2 md:flex-row">
+
               <div className="flex flex-col items-end gap-4 md:flex-row md:items-center ">
                 <div className="flex items-center justify-center gap-4">
                   <p className="mb-2"></p>
@@ -128,6 +131,7 @@ const Home = () => {
                     className="text-white join-item btn btn-sm btn-success" type="radio" name="options" aria-label="Female" />
                 </div>
               </div>
+              <Search setSearch={setSearch} text="Search by Nid" name="name" />
             </div>
           </div>
           <div className="my-8 overflow-x-scroll scrollbar-hide ">
