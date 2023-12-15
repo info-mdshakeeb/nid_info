@@ -96,16 +96,16 @@ export const SharedDropdown = ({ label, options, setDropdownValues, value }) => 
   );
 };
 
-export const Options = ({ options, setOptionValue, className, optionValue }) => {
+export const Options = ({ options, setOptionValue, className, optionValue, title }) => {
   return (
-    <div className="p-2 border rounded-md">
+    <div className="">
       <select onChange={(e) => setOptionValue(e.target.value)}
         value={optionValue ? optionValue : null}
-        className={twMerge("w-full  rounded-none focus:outline-none", className)}
+        className={twMerge("w-full   focus:outline-none px-4 py-1 rounded-md", className)}
       >
-        <option disabled selected className=''>Pick a value</option>
+        <option disabled selected className='capitalize'>{title}</option>
         {options?.map((option, i) => (
-          <option key={i} value={option} >  {option}</option>
+          <option className='capitalize' key={i} value={option?.key}>{option?.value}</option>
         ))}
       </select>
     </div>

@@ -5,23 +5,13 @@ export function cn(...classList) {
   return twMerge(clsx(classList))
 }
 
-import { useEffect, useState } from "react";
-
-export function useWindowSize() {
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
-
-  const checkScreenSize = () => {
-    setIsSmallScreen(window.innerWidth < 1024);
-  };
-
-  useEffect(() => {
-    checkScreenSize();
-    window.addEventListener("resize", checkScreenSize);
-
-    return () => {
-      window.removeEventListener("resize", checkScreenSize);
-    };
-  }, []); // Empty dependency array to run the effect only once on mount
-
-  return isSmallScreen;
+export const rememberMe = () => {
+  const getUserDetails = (name) => JSON.parse(localStorage.getItem(name));
+  const setUserDetails = (name, value) => localStorage.setItem(name, JSON.stringify(value));
+  const removeUserDetails = (name) => localStorage.removeItem(name);
+  return {
+    getUserDetails,
+    setUserDetails,
+    removeUserDetails
+  }
 }
