@@ -1,5 +1,5 @@
 const StageLoading = ({ children, isLoading, isError, isSuccess, error }) => {
-  console.log(error);
+
   return (
     <>
       {isLoading ?

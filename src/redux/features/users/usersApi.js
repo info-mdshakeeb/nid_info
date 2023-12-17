@@ -8,6 +8,12 @@ const usersApi = api.injectEndpoints({
         url: `/users?${data}`,
       }),
     }),
+    getUserDetails: builder.query({
+      query: (id) => ({
+        url: `/users/${id}`,
+      }),
+      providesTags: (result, error, id) => [{ type: 'users', id }]
+    }),
     getQueries: builder.query({
       query: (data) => ({
         url: `/areas?id=${data}`,
@@ -19,4 +25,5 @@ const usersApi = api.injectEndpoints({
 export const {
   useGetUsersQuery,
   useGetQueriesQuery,
+  useGetUserDetailsQuery
 } = usersApi

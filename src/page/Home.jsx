@@ -4,19 +4,23 @@ import PiChart from '@/components/Chart/PiChart';
 import Paginate from '@/components/Paginate';
 import Search from '@/components/Search';
 import StageLoading from '@/components/StageLoading';
-import Table from '@/components/Table/Table';
+// import Table from '@/components/Table/Table';
 import TableTemp from '@/components/TableTemp';
+import Modal from '@/components/modal/Modal';
+import UserDetails from '@/components/modal/modalContent/UserDetails';
 import { Options } from '@/components/ui/Dropdown';
+import { showModal } from '@/redux/features/modals/modalSlices';
 import { useGetUsersQuery } from '@/redux/features/users/usersApi';
 import React, { useEffect, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { twMerge } from 'tailwind-merge';
 
 const Home = () => {
+  const dispatch = useDispatch();
   const { open, openUnion, openGram } = useSelector((state) => state.query);
   const [optionValue, setOptionValue] = useState("");
   const [search, setSearch] = useState('')
-
+  const [modalContent, setModalContent] = useState();
   const [gander, setGander] = useState('')
   const [paginateData, setPaginateData] = useState(1)
 
@@ -43,7 +47,15 @@ const Home = () => {
     if (selected === 0) return setPaginateData(1);
     setPaginateData(selected + 1);
   }
-  // table head
+
+
+  const detailsFn = (data) => {
+    // if (!data) { errorToast("data not found"); return }
+    setModalContent(<UserDetails />)
+    dispatch(showModal({ show: true, page: paginateData, title: `${data.name}`, width: "max-w-2xl", selectedItem: { ...data }, }))
+  }
+
+  // table head 
   const tableHead = [
     { name: 'name', field: 'name', },
     { name: 'nid', field: 'nid', },
@@ -55,6 +67,11 @@ const Home = () => {
   ];
   // table fields to show
   const fieldsToShow = ['name', 'nid', 'father', 'mother', 'occupation', "mobile_no", "status"];
+
+
+  const ActionData = [
+    { name: "Details", fn: detailsFn },
+  ]
 
 
   return (
@@ -142,7 +159,7 @@ const Home = () => {
           <div className="my-8 overflow-x-scroll scrollbar-hide ">
             <StageLoading isLoading={isLoading} isError={isError} isSuccess={isSuccess} error={error}>
               <TableTemp
-                btn={false}
+                btn={true}
                 linkUrl="/"
                 customID={true}
                 rightPage={paginateData}
@@ -153,13 +170,14 @@ const Home = () => {
                 tableHead={tableHead}
                 data={data?.data}
                 fieldsToShow={fieldsToShow}
-              // actionData={ActionData} 
+                actionData={ActionData}
               />
             </StageLoading>
           </div>
         </div>
       </div>
       <Paginate pageChange={paginateData} total={data} loadDataFn={handlePaginate} />
+      <Modal modalContent={modalContent} />
     </div>
   );
 };

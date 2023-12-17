@@ -4,10 +4,12 @@ import { setupListeners } from "@reduxjs/toolkit/dist/query";
 import usersSlice from "./features/users/usersSlice";
 import querySlice from "@/redux/features/query/querySlice";
 import authSlice from "@/redux/features/auth/authSlice";
+import modalSlices from "@/redux/features/modals/modalSlices";
 
 
 export const store = configureStore({
   reducer: {
+    modal: modalSlices,
     auth: authSlice,
     query: querySlice,
     users: usersSlice,
