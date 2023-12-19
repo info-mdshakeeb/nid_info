@@ -1,10 +1,10 @@
 import { useGetUserDetailsQuery } from '@/redux/features/users/usersApi';
-import { useSelector } from 'react-redux';
+import { useParams } from 'react-router-dom';
 
 const UserDetails = () => {
-  const { modal } = useSelector(state => state.modal)
+  const { id } = useParams()
 
-  const { data, isLoading, isError, isSuccess, error, isFetching } = useGetUserDetailsQuery(modal?.selectedItem?.id, {
+  const { data, isLoading, isError, isSuccess, error, isFetching } = useGetUserDetailsQuery(id, {
     refetchOnMountOrArgChange: true,
     refetchOnReconnect: true,
     pollingInterval: 30000,

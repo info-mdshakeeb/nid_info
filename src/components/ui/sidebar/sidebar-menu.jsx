@@ -9,8 +9,6 @@ import { useGetQueriesQuery } from '@/redux/features/users/usersApi'
 
 const SidebarMenu = () => {
   const { open, openUnion } = useSelector((state) => state.query);
-
-  console.log();
   const { data: queryData, isLoading } = useGetQueriesQuery(open?.id || 1, {
     refetchOnMountOrArgChange: true,
     refetchOnReconnect: true,

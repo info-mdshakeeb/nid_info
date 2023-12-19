@@ -8,8 +8,11 @@ import {
 import { HiOutlineChevronDown } from 'react-icons/hi'
 import { useDispatch, useSelector } from 'react-redux';
 import { setOpen, setOpenGram, setOpenUnion } from '@/redux/features/query/querySlice';
+import { useNavigate } from 'react-router-dom';
 
 const SidebarCollapse = ({ children, icon, item, }) => {
+  const navigate = useNavigate();
+
   const dispatch = useDispatch();
   const { open, openUnion, openGram } = useSelector((state) => state.query);
   return (
@@ -24,6 +27,7 @@ const SidebarCollapse = ({ children, icon, item, }) => {
     }}>
       <CollapsibleTrigger asChild>
         <button
+          onClick={() => navigate('/')}
           className={`w-full font-medium flex justify-between items-center gap-2 rounded-lg py-2 px-4 mb-2 `}
         >
           <div className="flex items-center gap-2">

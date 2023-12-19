@@ -6,8 +6,8 @@ import Search from '@/components/Search';
 import StageLoading from '@/components/StageLoading';
 // import Table from '@/components/Table/Table';
 import TableTemp from '@/components/TableTemp';
-import Modal from '@/components/modal/Modal';
-import UserDetails from '@/components/modal/modalContent/UserDetails';
+// import Modal from '@/components/modal/Modal';
+import UserDetails from '@/page/UserDetails';
 import { Options } from '@/components/ui/Dropdown';
 import { showModal } from '@/redux/features/modals/modalSlices';
 import { useGetUsersQuery } from '@/redux/features/users/usersApi';
@@ -37,18 +37,16 @@ const Home = () => {
   })
 
   const EarningData = [
-    { name: "Total Users", value: 15, bg: "bg-[#AA72EB]", },
-    { name: "Total Confirm Users", value: 13, bg: "bg-[#1DCBA8]", },
-    { name: "Total Pending Users", value: 13, url: "add later ", bg: "bg-[#FFAF3D]", },
-    { name: "Total Reject Users", value: 13, bg: "bg-[#FF6A6A]" }
+    { name: "Total Users", value: data?.meta?.total, bg: "bg-[#AA72EB]", },
+    { name: "Total Confirm Users", value: data?.stats?.statusCounts.GREEN, bg: "bg-[#1DCBA8]", },
+    { name: "Total Pending Users", value: data?.stats?.statusCounts.YELLOW, url: "add later ", bg: "bg-[#FFAF3D]", },
+    { name: "Total Reject Users", value: data?.stats?.statusCounts.RED, bg: "bg-[#FF6A6A]" }
   ]
   const handlePaginate = (data) => {
     let selected = data.selected;
     if (selected === 0) return setPaginateData(1);
     setPaginateData(selected + 1);
   }
-
-
   const detailsFn = (data) => {
     // if (!data) { errorToast("data not found"); return }
     setModalContent(<UserDetails />)
@@ -68,12 +66,9 @@ const Home = () => {
   // table fields to show
   const fieldsToShow = ['name', 'nid', 'father', 'mother', 'occupation', "mobile_no", "status"];
 
-
   const ActionData = [
     { name: "Details", fn: detailsFn },
   ]
-
-
   return (
     <div className='bg-secondary'>
       <div className={twMerge("mx-auto flex flex-col w-full ", "")} >
@@ -84,8 +79,8 @@ const Home = () => {
               <h1 className="text-[18px] font-poppins text-black font-semibold">Total Analytics</h1>
             </div>
             <div className="flex flex-col items-center justify-center gap-10 md:flex-row ">
-              <div className="scale-[1.6] lg:w-[40%]">
-                <PiChart />
+              <div className="scale-[1.6] lg:w-[60%]">
+                <PiChart loadData={data?.stats?.statusPercentages} />
               </div>
               <div className="w-full">
                 <div className="grid w-full grid-cols-2 gap-4">
@@ -159,13 +154,14 @@ const Home = () => {
           <div className="my-8 overflow-x-scroll scrollbar-hide ">
             <StageLoading isLoading={isLoading} isError={isError} isSuccess={isSuccess} error={error}>
               <TableTemp
-                btn={true}
-                linkUrl="/"
+                // btn={true}
+                linkUrl="/user-details"
                 customID={true}
                 rightPage={paginateData}
                 totalData={data?.meta?.total}
-                assignLinkOnHeader="service_image"
-                isImage={true}
+                linkFieldName="name"
+                assignLinkOnHeader="name"
+                isImage={false}
                 isImageLink={false}
                 tableHead={tableHead}
                 data={data?.data}
@@ -177,7 +173,7 @@ const Home = () => {
         </div>
       </div>
       <Paginate pageChange={paginateData} total={data} loadDataFn={handlePaginate} />
-      <Modal modalContent={modalContent} />
+      {/* <Modal modalContent={modalContent} /> */}
     </div>
   );
 };

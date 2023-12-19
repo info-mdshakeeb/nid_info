@@ -7,14 +7,8 @@ import {
   Sector,
 } from 'recharts';
 
-const data = [
-  { name: 'Group A', value: 400 },
-  { name: 'Group B', value: 300 },
-  { name: 'Group C', value: 300 },
-  { name: 'Group D', value: 200 },
-];
 
-const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+
 
 const RADIAN = Math.PI / 180;
 
@@ -39,12 +33,21 @@ const renderCustomizedLabel = ({
       textAnchor={x > cx ? 'start' : 'end'}
       dominantBaseline="central"
     >
-      {`${(percent * 100).toFixed(0)}%`}
+
+      {percent ? `${(percent * 100).toFixed(0)}%` : ""}
     </text>
   );
 };
 
-const PiChart = () => {
+const PiChart = ({ loadData }) => {
+
+  const COLORS = ['#FFAF3D', '#1DCBA8', '#FF6A6A', '#948d8d',];
+  const data = [
+    { name: 'Pending', value: loadData?.YELLOW },
+    { name: 'Confirmed', value: loadData?.GREEN },
+    { name: 'Group C', value: loadData?.RED },
+    { name: 'Group D', value: loadData?.WHITE },
+  ];
   return (
     <ResponsiveContainer width="100%" height={300}>
       <PieChart >
