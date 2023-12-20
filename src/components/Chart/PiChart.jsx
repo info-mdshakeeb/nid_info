@@ -32,14 +32,13 @@ const renderCustomizedLabel = ({
       fill="white"
       textAnchor={x > cx ? 'start' : 'end'}
       dominantBaseline="central"
-    >
-
-      {percent ? `${(percent * 100).toFixed(0)}%` : ""}
+    >{percent ? `${(percent * 100).toFixed(0)}%` : ""}
     </text>
   );
 };
 
 const PiChart = ({ loadData }) => {
+  console.log();
 
   const COLORS = ['#FFAF3D', '#1DCBA8', '#FF6A6A', '#948d8d',];
   const data = [
@@ -48,6 +47,8 @@ const PiChart = ({ loadData }) => {
     { name: 'Group C', value: loadData?.RED },
     { name: 'Group D', value: loadData?.WHITE },
   ];
+  const isExits = loadData?.YELLOW || loadData?.GREEN || loadData?.RED || loadData?.WHITE;
+  if (!isExits) return <div className="flex justify-center items-center h-[100px]">No Data Found</div>
   return (
     <ResponsiveContainer width="100%" height={300}>
       <PieChart >
