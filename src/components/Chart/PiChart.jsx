@@ -44,8 +44,7 @@ const PiChart = ({ loadData }) => {
     { name: 'Group C', value: loadData?.RED },
     { name: 'Group D', value: loadData?.WHITE },
   ];
-  const isExits = loadData?.YELLOW || loadData?.GREEN || loadData?.RED || loadData?.WHITE;
-  if (!isExits) return <div className="flex justify-center items-center h-[100px]">No Data Found</div>
+
   return (
     <ResponsiveContainer width="100%" height={300}>
       <PieChart >

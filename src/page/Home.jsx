@@ -69,6 +69,9 @@ const Home = () => {
   const ActionData = [
     { name: "Details", fn: detailsFn },
   ]
+
+  const isExits = data?.stats?.statusPercentages?.YELLOW || data?.stats?.statusPercentages?.GREEN || data?.stats?.statusPercentages?.RED || data?.stats?.statusPercentages?.WHITE;
+
   return (
     <div className='bg-secondary'>
       <div className={twMerge("mx-auto flex flex-col w-full ", "")} >
@@ -79,9 +82,9 @@ const Home = () => {
               <h1 className="text-[18px] font-poppins text-black font-semibold">Total Analytics</h1>
             </div>
             <div className="flex flex-col items-center justify-center gap-10 md:flex-row ">
-              <div className="scale-[1.6] lg:w-[60%]">
+              {isExits > 0 && <div className="scale-[1.6] lg:w-[60%]">
                 <PiChart loadData={data?.stats?.statusPercentages} />
-              </div>
+              </div>}
               <div className="w-full">
                 <div className="grid w-full grid-cols-2 gap-4">
                   {EarningData?.map((earnData, i) =>
