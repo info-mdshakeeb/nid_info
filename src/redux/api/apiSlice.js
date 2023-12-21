@@ -4,7 +4,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 export const api = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "https://c80c-27-147-163-201.ngrok-free.app/api",
+    baseUrl: "http://18.143.17.23:7000/api",
     prepareHeaders: (headers, { getState }) => {
       headers.set("ngrok-skip-browser-warning", "no more")
       const token = getState().auth.accessToken

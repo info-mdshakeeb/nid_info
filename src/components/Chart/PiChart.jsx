@@ -4,11 +4,8 @@ import {
   Pie,
   Cell,
   ResponsiveContainer,
-  Sector,
+
 } from 'recharts';
-
-
-
 
 const RADIAN = Math.PI / 180;
 
